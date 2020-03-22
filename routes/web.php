@@ -20,6 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('teachersadmin', 'TeachersadminController');
 
 Auth::routes();
 Route::get('/blockstudent/{id}', 'BlockController@blockedStudent');

@@ -29,7 +29,7 @@ class AdminController extends Controller
             if ($user->blocked()) {
                 return redirect('/')->with('error', 'Sorry, you have been blocked from accessing your Portal.' . "<br>" . ' Please contact the Admin');
             } else {
-                return 'nice';
+                return redirect('/teachersadmin');
             }
         } else {
             return redirect()->back()->with('error', 'Incorrect login details ');

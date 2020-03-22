@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Content;
+use App\Student;
 use Illuminate\Http\Request;
 
 class TeachersadminController extends Controller
@@ -18,7 +20,9 @@ class TeachersadminController extends Controller
     public function index()
     {
         //
-        return view('adminlogin');
+        $students = Student::where('studentsCourse', 'computer science')->get();
+        return view('teachersadmin.index')->with('students', $students);
+
     }
 
     /**
@@ -28,7 +32,9 @@ class TeachersadminController extends Controller
      */
     public function create()
     {
-        //
+        $students = Student::where('studentsCourse', 'computer science')->get();
+        return view('teachersadmin.content')->with('students', $students);
+
     }
 
     /**
@@ -39,7 +45,33 @@ class TeachersadminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'topic' => 'required|min:5|max:20',
+            'content' => 'required',
+            'files' => 'nullable',
+        ]);
+        if ($request->hasFile('uploads')) {
+            $file = $request->file('uploads')->getClientOriginalName();
+            $fileExt = $request->file('uploads')->getClientOriginalExtension();
+            $filename = pathinfo($file, PATHINFO_FILENAME);
+
+            $fileToDb = $filename . '_' . time() . '.' . $fileExt;
+            $path = $request->file('uploads')->storeAs('public/uploads', $fileToDb);
+            // } else {
+            // return redirect()->back()->with('error', 'The format of the file is not supported');
+
+        }
+        //     return 'fail';
+        // }
+        $courseFile = new Content();
+        $courseFile->topic = $request->topic;
+        $courseFile->content = $request->content;
+        $courseFile->files = $request->uploads;
+        if ($request->hasFile('uploads')) {
+            $courseFile->files = $fileToDb;
+        }
+        $courseFile->save();
+        return redirect('/teachersadmin')->with('success', 'New content has been added successfully');
     }
 
     /**
@@ -86,4 +118,5 @@ class TeachersadminController extends Controller
     {
         //
     }
+
 }
