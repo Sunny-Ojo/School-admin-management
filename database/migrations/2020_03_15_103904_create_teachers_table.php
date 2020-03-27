@@ -24,7 +24,7 @@ class CreateTeachersTable extends Migration
             $table->string('emailAddress');
             $table->string('passport');
             $table->string('phone');
-            $table->string('password');
+            $table->string('course');
 
             $table->timestamps();
         });

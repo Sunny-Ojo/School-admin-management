@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Staff;
 use App\Student;
 use App\Teacher;
 use DB;
@@ -15,10 +16,10 @@ class BlockController extends Controller
         $id = $student->id;
         $block = DB::update('update students set blocked_at = ? where id = ?', [Now(), $id]);
         if ($block) {
-            return redirect()->back()->withErrors('Student has successfully been blocked, He/She willl no longer have access to his portal ');
+            return redirect()->back()->with('success', 'Student has successfully been blocked, He/She willl no longer have access to his portal ');
 
         } else {
-            return redirect()->back()->withErrors('error occured');
+            return redirect()->back()->with('error', 'error occured');
 
         }
     }
@@ -28,10 +29,10 @@ class BlockController extends Controller
         $id = $student->id;
         $block = DB::update('update students set blocked_at = ? where id = ?', ['', $id]);
         if ($block) {
-            return redirect()->back()->withErrors('Student has successfully been unblocked.');
+            return redirect()->back()->with('success', 'Student has successfully been unblocked.');
 
         } else {
-            return redirect()->back()->withErrors('error occured');
+            return redirect()->back()->with('error', 'error occured');
 
         }
     }
@@ -41,10 +42,10 @@ class BlockController extends Controller
         $id = $teacher->id;
         $block = DB::update('update teachers set blocked_at = ? where id = ?', [Now(), $id]);
         if ($block) {
-            return redirect()->back()->withErrors('Teacher has successfully been blocked, He/She willl no longer have access to his portal ');
+            return redirect()->back()->with('success', 'Teacher has successfully been blocked, He/She willl no longer have access to his portal ');
 
         } else {
-            return redirect()->back()->withErrors('error occured');
+            return redirect()->back()->with('error', 'error occured');
 
         }
     }
@@ -54,12 +55,37 @@ class BlockController extends Controller
         $id = $teacher->id;
         $block = DB::update('update teachers set blocked_at = ? where id = ?', ['', $id]);
         if ($block) {
-            return redirect()->back()->withErrors('Teacher has successfully been unblocked. ');
+            return redirect()->back()->with('success', 'Teacher has successfully been unblocked. ');
 
         } else {
-            return redirect()->back()->withErrors('error occured');
+            return redirect()->back()->with('error', 'error occured');
 
         }
     }
+    public function blockedStaff($id)
+    {
+        $teacher = Staff::find($id);
+        $id = $teacher->id;
+        $block = DB::update('update staff set blocked_at = ? where id = ?', [Now(), $id]);
+        if ($block) {
+            return redirect()->back()->with('success', 'Staff has successfully been blocked, He/She willl no longer have access to his portal ');
 
+        } else {
+            return redirect()->back()->with('error', 'error occured');
+
+        }
+    }
+    public function unblockedStaff($id)
+    {
+        $teacher = Staff::find($id);
+        $id = $teacher->id;
+        $block = DB::update('update staff set blocked_at = ? where id = ?', ['', $id]);
+        if ($block) {
+            return redirect()->back()->with('success', 'Staff has successfully been unblocked. ');
+
+        } else {
+            return redirect()->back()->with('error', 'error occured');
+
+        }
+    }
 }

@@ -35,9 +35,9 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
-        <div class="sidebar-brand-icon">
-            <img style="height:30px;width:30px;border-radius:50px" src="{{asset('/img/download.png')}}" alt="">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+        <div class="sidebar-brand-icon ">
+       <i class="ml-3 fa fa-user-shield"></i>
         </div>
     <div class="sidebar-brand-text mx-3"> {{auth()->user()->name}}</div>
       </a>
@@ -46,7 +46,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="/admin">
+        <a class="nav-link" href="/home">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -67,8 +67,12 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="/students/create">Add a new Student</a>
+          </div>
+          <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="/students">View Registered Students</a>
           </div>
+
         </div>
       </li>
 
@@ -80,27 +84,31 @@
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
+              <a class="collapse-item" href="/teachers/create">Add a new Teacher</a>
+          </div>
+          <div class="bg-white py-2 collapse-inner rounded">
               <a class="collapse-item" href="/teachers">View Registered Teachers</a>
           </div>
+
         </div>
       </li>
 
-      {{-- <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-wrench"></i>
-          <span>Pins</span>
-        </a>
-        @php
-    @endphp
-        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
 
-            <a class="collapse-item" href="/pin">Generate Pins</a>
+                 <li class="nav-item">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities2" aria-expanded="true" aria-controls="collapseUtilities2">
+                        <i class="fas fa-user-graduate"></i>
+                        <span>Staffs</span>
+                        </a>
+                        <div id="collapseUtilities2" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" href="/staffs/create">Add a new Staff</a>
+                        </div>
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" href="/staffs">View Registered Staffs</a>
+                        </div>
 
-            <a class="collapse-item" href="/generatedpins">View Generated Pins  <span class="bg-danger text-white p-1">hi</span></a>
-          </div>
-        </div>
-      </li> --}}
+                        </div>
+                    </li>
 
       <!-- Divider -->
       <hr class="sidebar-divi der">
@@ -207,6 +215,7 @@
               <a title="Students" class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-users "></i>
                 @php
+                $staff = count($staff);
                     $students = count($students);
                     $teachers = count($teachers);
                 @endphp
@@ -240,6 +249,45 @@
 
                     <div>
                       <div class="text-truncate font-weight-bold">Go to Students board</div>
+                    </div>
+                  </a>
+              </div>
+            </li>
+
+            <li class="nav-item dropdown no-arrow mx-1">
+              <a title="Staffs" class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-user-graduate "></i>
+
+                <!-- Counter - Alerts -->
+              <span class="badge badge-danger badge-counter">{{$staff}}</span>
+              </a>
+              <!-- Dropdown - Alerts -->
+              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                <h6 class="dropdown-header">
+                 Staff Center
+                </h6>
+                <a class="dropdown-item d-flex align-items-center" href="/staffs">
+
+                    <div class="font-weight-bold">
+                      <div class="text-truncate">@php
+                          if($staff  == 0){
+                                 echo 'No Staff has been registered';
+
+                          }
+                           elseif ($staff  == 1) {
+                               echo $staff . ' Staff has been registered ';
+                           }
+                           else {
+                               echo $staff . ' Staffs  have been registered';
+                           }
+                      @endphp
+                      </div>
+                    </div>
+                  </a>
+                  <a class="dropdown-item d-flex align-items-center" href="/staffs ">
+
+                    <div>
+                      <div class="text-truncate font-weight-bold">Go to Staff  board</div>
                     </div>
                   </a>
               </div>
@@ -285,7 +333,7 @@
             </li>
             <li class="nav-item dropdown no-arrow mx-1">
 
-                <a title="Logout" class="nav-link dropdown-toggle" href="{{ url('') }}" >
+                <a title="Logout" class="nav-link dropdown-toggle" href="{{ url('/logoutadmin') }}" >
 
                   <i
                   class="fas fa-sign-out-alt fa-2x fa-fw mr-2 text-gray-400"
@@ -303,7 +351,7 @@
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
-           <h4 class=" "> Admin Panel for Students And Teachers</h4>
+           <h4 class="text-info "> School Admin Management</h4>
      @include('layouts.msg')
  @yield('content')
 

@@ -1,23 +1,15 @@
 @extends('layouts.admin')
 @section('title', 'Update Students profile')
   @section('content')
-  @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+
 
 
   <a href="/students" class="btn btn-secondary mb-1">Go Back</a>
 
-  <h1 class="bg-dark text-white text-center p-2">Update {{$student->firstName. ' ' .$student->lastName}}'s Profile</h1>
 <div class="row">
 <div class="col-md-8 col-lg-8 offset-md-2">
- {!! Form::open(['action' => ['StudentsController@update', $student->id], 'method'=>'PUT', 'enctype'=>'multipart/form-data']) !!}
+   <h4 class="bg-dark text-white text-center p-2">Update {{$student->firstName. ' ' .$student->lastName}}'s Profile</h1>
+{!! Form::open(['action' => ['StudentsController@update', $student->id], 'method'=>'PUT', 'enctype'=>'multipart/form-data']) !!}
 <div class="form-group mt-3">
 {{ Form::label('firstName', 'First Name') }}
 {{ Form::text('firstName', $student->firstName, ['class'=> 'form-control']) }}

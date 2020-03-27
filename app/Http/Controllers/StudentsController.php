@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Staff;
 use App\Student;
 use App\Teacher;
 use Illuminate\Http\Request;
@@ -19,9 +20,11 @@ class StudentsController extends Controller
      */
     public function index()
     {
+        $staff = Staff::all();
+
         $students = Student::orderBy('created_at', 'desc')->get();
         $teachers = Teacher::orderBy('created_at', 'desc')->get();
-        return view('students.index')->with(['students' => $students, 'teachers' => $teachers]);
+        return view('students.index')->with(['staff' => $staff, 'students' => $students, 'teachers' => $teachers]);
 
     }
 
@@ -32,9 +35,11 @@ class StudentsController extends Controller
      */
     public function create()
     {
+        $staff = Staff::all();
+
         $students = Student::orderBy('created_at', 'desc')->get();
         $teachers = Teacher::orderBy('created_at', 'desc')->get();
-        return view('students.create')->with(['students' => $students, 'teachers' => $teachers]);
+        return view('students.create')->with(['staff' => $staff, 'students' => $students, 'teachers' => $teachers]);
 
     }
 
@@ -85,7 +90,7 @@ class StudentsController extends Controller
         $data->phone = $request->phone;
         $data->StudentsCourse = $request->course;
         $data->save();
-        return redirect('/students')->with('success', 'update was successful');
+        return redirect('/students')->with('success', 'A new Student has been added successfully');
 
     }
 
@@ -98,10 +103,11 @@ class StudentsController extends Controller
     public function show($id)
     {
         $student = Student::find($id);
+        $staff = Staff::all();
 
         $students = Student::orderBy('created_at', 'desc')->get();
         $teachers = Teacher::orderBy('created_at', 'desc')->get();
-        return view('students.show')->with(['students' => $students, 'student' => $student, 'teachers' => $teachers]);
+        return view('students.show')->with(['staff' => $staff, 'students' => $students, 'student' => $student, 'teachers' => $teachers]);
 
     }
 
@@ -114,10 +120,11 @@ class StudentsController extends Controller
     public function edit($id)
     {
         $student = Student::find($id);
+        $staff = Staff::all();
 
         $students = Student::orderBy('created_at', 'desc')->get();
         $teachers = Teacher::orderBy('created_at', 'desc')->get();
-        return view('students.edit')->with(['students' => $students, 'student' => $student, 'teachers' => $teachers]);
+        return view('students.edit')->with(['staff' => $staff, 'students' => $students, 'student' => $student, 'teachers' => $teachers]);
 
     }
 

@@ -13,18 +13,12 @@
       <div class="card-body">
         <div class="table-responsive">
           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-            @if ($errors->any())
-            <div class="alert alert-danger">
 
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-            </div>
-        @endif
 
 
             <thead>
               <tr>
+                  <th>Id</th>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Home Address</th>
@@ -33,6 +27,7 @@
             </thead>
             <tfoot>
               <tr>
+                  <th>Id</th>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Home Address</th>
@@ -43,6 +38,7 @@
                 @foreach ($teachers as $teacher)
 
                     <tr>
+                    <td>{{$teacher->id}}</td>
                     <td>{{$teacher->firstName}}</td>
                       <td>{{$teacher->lastName}}</td>
                       <td>{{$teacher->homeAddress}}</td>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Staff;
 use App\Student;
 use App\Teacher;
 
@@ -24,9 +25,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $staff = Staff::all();
         $students = Student::all();
         $teachers = Teacher::all();
-        return view('admin.index')->with(['students' => $students, 'teachers' => $teachers]);
+        return view('admin.index')->with(['staff' => $staff, 'students' => $students, 'teachers' => $teachers]);
 
     }
 }

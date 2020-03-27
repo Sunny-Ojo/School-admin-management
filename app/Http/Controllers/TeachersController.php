@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Staff;
 use App\Student;
 use App\Teacher;
 use Illuminate\Http\Request;
@@ -19,9 +20,11 @@ class TeachersController extends Controller
      */
     public function index()
     {
+        $staff = Staff::all();
+
         $students = Student::orderBy('created_at', 'desc')->get();
         $teachers = Teacher::orderBy('created_at', 'desc')->get();
-        return view('teachers.index')->with(['students' => $students, 'teachers' => $teachers]);
+        return view('teachers.index')->with(['staff' => $staff, 'students' => $students, 'teachers' => $teachers]);
 
     }
 
@@ -32,9 +35,11 @@ class TeachersController extends Controller
      */
     public function create()
     {
+        $staff = Staff::all();
+
         $students = Student::orderBy('created_at', 'desc')->get();
         $teachers = Teacher::orderBy('created_at', 'desc')->get();
-        return view('teachers.create')->with(['students' => $students, 'teachers' => $teachers]);
+        return view('teachers.create')->with(['staff' => $staff, 'students' => $students, 'teachers' => $teachers]);
 
     }
 
@@ -58,7 +63,6 @@ class TeachersController extends Controller
             'passport' => 'image|required',
             'phone' => 'required',
             'course' => 'required',
-            'password' => 'required',
 
         ]);
         if ($request->hasFile('passport')) {
@@ -85,11 +89,9 @@ class TeachersController extends Controller
 
         $data->phone = $request->phone;
         $data->course = $request->course;
-        $pass = $request->password;
-        $password = sha1($pass);
-        $data->password = $password;
+
         $data->save();
-        return redirect('/teachers')->with('success', 'Teachers  has been created successful');
+        return redirect('/teachers')->with('success', ' A new Teacher  has been created successful');
 
     }
 
@@ -102,10 +104,11 @@ class TeachersController extends Controller
     public function show($id)
     {
         $student = Teacher::find($id);
+        $staff = Staff::all();
 
         $students = Student::orderBy('created_at', 'desc')->get();
         $teachers = Teacher::orderBy('created_at', 'desc')->get();
-        return view('teachers.show')->with(['students' => $students, 'student' => $student, 'teachers' => $teachers]);
+        return view('teachers.show')->with(['staff' => $staff, 'students' => $students, 'student' => $student, 'teachers' => $teachers]);
 
     }
 
@@ -118,10 +121,11 @@ class TeachersController extends Controller
     public function edit($id)
     {
         $teacher = Teacher::find($id);
+        $staff = Staff::all();
 
         $students = Student::orderBy('created_at', 'desc')->get();
         $teachers = Teacher::orderBy('created_at', 'desc')->get();
-        return view('teachers.edit')->with(['students' => $students, 'teacher' => $teacher, 'teachers' => $teachers]);
+        return view('teachers.edit')->with(['staff' => $staff, 'students' => $students, 'teacher' => $teacher, 'teachers' => $teachers]);
 
     }
 
@@ -145,7 +149,7 @@ class TeachersController extends Controller
             'emailAddress' => 'required',
             'passport' => 'nullable|',
             'phone' => 'required',
-            'password' => 'required',
+            'course' => 'required',
 
         ]);
         if ($request->hasFile('passport')) {
@@ -170,9 +174,8 @@ class TeachersController extends Controller
         }
 
         $data->phone = $request->phone;
-        $pass = $request->password;
-        $password = sha1($pass);
-        $data->password = $password;
+        $data->course = $request->course;
+
         $data->save();
         return redirect('/teachers')->with('success', 'update was successful');
     }

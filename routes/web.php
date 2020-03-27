@@ -14,20 +14,20 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
-
+Route::get('/logoutadmin', function () {
+    Auth()->logout();
+    return redirect('/');
+});
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('teachersadmin', 'TeachersadminController');
-
-Auth::routes();
 Route::get('/blockstudent/{id}', 'BlockController@blockedStudent');
 Route::get('/blockteacher/{id}', 'BlockController@blockedTeacher');
+Route::get('/blockstaff/{id}', 'BlockController@blockedStaff');
 Route::get('/unblockstudent/{id}', 'BlockController@unblockedStudent');
 Route::get('/unblockteacher/{id}', 'BlockController@unblockedTeacher');
+Route::get('/unblockstaff/{id}', 'BlockController@unblockedStaff');
 Route::resource('students', 'StudentsController');
 Route::resource('teachers', 'TeachersController');
-Route::get('/teacherslogin', 'AdminController@teacherslogin');
-Route::post('/loginteacher', 'AdminController@loginteacher')->name('loginteacher');
+Route::resource('staffs', 'StaffController');

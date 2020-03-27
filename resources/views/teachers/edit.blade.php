@@ -2,23 +2,15 @@
 @section('title', 'Update Teachers profile')
   @section('content')
   <hr>
-  @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+
 
 
   <a href="/teachers" class="btn btn-secondary mb-1">Go Back</a>
 
-  <h1 class="bg-dark text-white text-center p-2">Update {{$teacher->firstName. ' ' .$teacher->lastName}}'s Profile</h1>
 <div class="row">
 <div class="col-md-8 col-lg-8 offset-md-2">
- {!! Form::open(['action' => ['TeachersController@update', $teacher->id], 'method'=>'PUT', 'enctype'=>'multipart/form-data']) !!}
+   <h4 class="bg-dark text-white text-center p-2">Update {{$teacher->firstName. ' ' .$teacher->lastName}}'s Profile</h4>
+{!! Form::open(['action' => ['TeachersController@update', $teacher->id], 'method'=>'PUT', 'enctype'=>'multipart/form-data']) !!}
 <div class="form-group mt-3">
 {{ Form::label('firstName', 'First Name') }}
 {{ Form::text('firstName', $teacher->firstName, ['class'=> 'form-control']) }}
@@ -58,8 +50,8 @@
             {{ Form::text('phone', $teacher->phone, ['class'=> 'form-control']) }}
             </div>
         <div class="form-group ">
-            {{ Form::label('password', 'Change your password ') }}
-            {{ Form::password('password', ['class'=> 'form-control'], $teacher->password) }}
+            {{ Form::label('course', 'Change  Course ') }}
+            {{ Form::text('course',$teacher->course, ['class'=> 'form-control'], ) }}
             </div>
             {{ Form::submit('Update', ['class'=>'btn btn-primary']) }}
 {!! Form::close() !!}
