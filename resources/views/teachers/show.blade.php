@@ -1,8 +1,7 @@
 @extends('layouts.admin')
 @section('title', 'Teachers profile')
     @section('content')
-    <a href="/teachers" class="btn btn-secondary mb-1">Go Back</a>
-<h1 class="bg-dark text-white text-center p-2">{{$student->firstName. ' ' .$student->lastName}}'s Profile</h1>
+<h4 class="bg-dark text-white text-center p-2">{{$student->firstName. ' ' .$student->lastName}}'s Profile</h4>
 <div class="card-body">
  <div class="row">
 <div class="col-md-4 col-lg-4">
@@ -22,6 +21,7 @@
 </div>
 
  </div>
+ <hr>
  <a href="/teachers/{{$student->id}}/edit"><i class="fa btn btn-sm btn-success fa-edit">Edit</i> </a>
 
  @if ($student->blocked_at != '')
@@ -30,7 +30,10 @@
                    @else
                                      <a href="/blockteacher/{{$student->id}}" class="btn btn-warning btn-sm">Block Teacher</a>
 
-                   @endif{!! Form::open(['action'=>['TeachersController@destroy',$student->id], 'method'=>'DELETE', 'class'=>'float-left mr-1 mb-3']) !!}
+                   @endif
+                   <a href="/teachers" class="btn btn-sm btn-secondary">Go Back</a>
+
+                   {!! Form::open(['action'=>['TeachersController@destroy',$student->id], 'method'=>'DELETE', 'class'=>'float-left mr-1 mb-3']) !!}
   {{ Form::hidden('method', 'DELETE') }}
   {{ Form::submit('Delete', ['class'=>['btn btn-danger btn-sm ', 'float-left','mb-4']]) }}
     {!! Form::close() !!}

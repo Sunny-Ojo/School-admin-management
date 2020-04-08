@@ -38,8 +38,8 @@
             </div>
             <div class="form-group ">
                                <small>upload your passport</small><br>
- {{ Form::file('passport', ) }} <br>
-                           <img class="mt-2" style="width:65px;height:50px" src="{{'/storage/passports/'.$staffs->passport }}" alt="staffss passport">
+                       {{ Form::file('passport', ) }} <br>
+                           <img class="mt-2" style="width:65px;height:50px" src="{{'/storage/passports/'.$staffs->passport }}" alt="staffs passport">
  </div>
         <div class="form-group ">
             {{ Form::label('phone', 'Phone Number ') }}

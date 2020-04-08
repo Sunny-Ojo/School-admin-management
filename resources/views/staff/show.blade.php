@@ -1,7 +1,6 @@
 @extends('layouts.admin')
 @section('title', 'Staffs profile')
     @section('content')
-    <a href="/Staffs" class="btn btn-secondary mb-1">Go Back</a>
 <h4 class="bg-dark text-white text-center p-2">{{$staffs->firstName. ' ' .$staffs->lastName}}'s Profile</h4>
 <div class="card-body">
  <div class="row">
@@ -21,6 +20,7 @@
 </div>
 
  </div>
+ <hr>
  <a href="/staffs/{{$staffs->id}}/edit"><i class="fa btn btn-sm btn-success fa-edit">Edit</i> </a>
 
  @if ($staffs->blocked_at != '')
@@ -30,6 +30,8 @@
                                      <a href="/blockstaff/{{$staffs->id}}" class="btn btn-warning btn-sm">Block Staff</a>
 
                    @endif
+                   <a href="/staffs" class="btn btn-sm btn-secondary">Go Back</a>
+
                    {!! Form::open(['action'=>['StaffController@destroy',$staffs->id], 'method'=>'DELETE', 'class'=>'float-left mr-1 mb-3']) !!}
   {{ Form::hidden('method', 'DELETE') }}
   {{ Form::submit('Delete', ['class'=>['btn btn-danger btn-sm ', 'float-left','mb-4']]) }}

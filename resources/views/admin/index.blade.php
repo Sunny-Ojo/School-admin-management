@@ -5,11 +5,6 @@
 <hr>
 <div class="breadcrumb">
 
-<header>
-    <h2>Welcome <span class="text-warning">{{ auth()->user()->name }}</span></h2>
-    <hr class="bg-primary">
-</header>
-
     <div class="row mt-3 ">
         <div class="col-lg-6 col-md-6 mb-4">
             <div class="card border-left-success shadow h-100 py-2">
@@ -40,7 +35,7 @@
 
                   </div>
                   <div class="col-auto">
-                    <i class="fa fa-user-alt fa-4x text-gray-300"></i>
+                    <i class="fa fa-user-alt fa-4x text-gray-300 "></i>
                   </div>
                 </div>
               </div>
